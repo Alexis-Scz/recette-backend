@@ -1,9 +1,11 @@
 import { Router } from "express";
 
-import getTest from "../controller/testApi.controller.js";
+import getTest,{ getTestingr,getingrct } from "../controller/testApi.controller.js";
+
 
 const router = Router();
 
 router.get('/test', getTest);
-
+router.get('/ing', getTestingr);
+router.get('/ingrct',getingrct)
 export default router
