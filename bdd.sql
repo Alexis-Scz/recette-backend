@@ -33,12 +33,10 @@ CREATE TABLE recipe_ingr (
 
     qte FLOAT NOT NULL,                      -- Quantité obligatoire
 
-    unite_de_mesure ENUM('g', 'kg', 'cuillère à soupe', 'cuillère à café') NOT NULL, -- Liste des unités de mesure
+    unite_de_mesure ENUM('g', 'kg', 'cuillère à soupe', 'cuillère à café','piece') NOT NULL, -- Liste des unités de mesure
 
     CONSTRAINT fk_recette FOREIGN KEY (id_recette) REFERENCES recette(id) ON DELETE CASCADE,
 
     CONSTRAINT fk_ingr FOREIGN KEY (id_ingr) REFERENCES ingredients(id) ON DELETE CASCADE
 
 );
-
- 

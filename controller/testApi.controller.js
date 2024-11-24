@@ -33,3 +33,14 @@ export  async function getingrct (req, res, next) {
   }
   
 }
+
+// export  async function getmodop (req, res, next) {
+//   try {
+//     const rows = await pool.query("select * from recipe_ingr  ")
+//     console.log(rows)
+//     res.send(rows);
+//   } catch (error) {
+//     console.log("🚀 ~ getTest ~ error:", error)
+//   }
+  
+// }
