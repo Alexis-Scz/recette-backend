@@ -37,14 +37,17 @@ export  async function getingrct (req, res, next) {
 export  async function getunit (req, res, next) {
   try {
     // const rows = await pool.query("explain recipe_ingr  ")
-    const rows = await pool.query("SELECT COLUMN_TYPE FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA = 'bddrct'AND TABLE_NAME = 'recipe_ingr' AND COLUMN_NAME = 'unite_de_mesure'  ")
+    const rows = await pool.query("SELECT enumlabel AS unit_possible FROM pg_enum WHERE enumtypid = (SELECT oid FROM pg_type WHERE typname = 'unite_mesure_enum')");
 
-    const deleteEnum = rows[0].COLUMN_TYPE.slice(5, -1);
+    console.log(rows)
 
-    let enumValues = deleteEnum.split(',')
+    res.send(rows);
+    // const deleteEnum = rows[0].COLUMN_TYPE.slice(5, -1);
 
-    enumValues = enumValues.map(value => value.trim().replace(/'/g, ''))
-    res.send(enumValues);
+    // let enumValues = deleteEnum.split(',')
+
+    // enumValues = enumValues.map(value => value.trim().replace(/'/g, ''))
+    // res.send(enumValues);
   } catch (error) {
     console.log("🚀 ~ getTest ~ error:", error)
   }
@@ -57,7 +60,7 @@ export  async function postrct (req, res, next) {
     const {Nom_recette, Ingredients_recette,Quantité_ingredient,Unit_mesure,Mode_operatoire } = req.body
     console.log("🚀 ~ postrct ~ req.body:", req.body)
 
-    const rct = await pool.query("insert into recette(nom,mode_operatoire)values(?,?)",[Nom_recette, Mode_operatoire]);
+    const rct = await pool.query("insert into recette(nom,mode_operatoire)values($1,$2)",[Nom_recette, Mode_operatoire]);
 
     // const ing=await pool.query("insert into ingredients(nom) values(?) ",[Ingredients_recette]);
 
